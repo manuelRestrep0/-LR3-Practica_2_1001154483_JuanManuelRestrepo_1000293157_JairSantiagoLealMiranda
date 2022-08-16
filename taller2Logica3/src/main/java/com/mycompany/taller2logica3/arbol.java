@@ -15,12 +15,10 @@ public class arbol {
                 hoja = new nodoDoble(arbolHilera.charAt(i+1));
                 hoja.setLigaIzq(auxAnterior);
                 auxAnterior.setLigaDer(hoja); // error en esta linea, cuando se regresa el ancestro, la liga derecha cambia.
-                if(arbolHilera.charAt(i)=='('){
-                    auxAnterior = hoja;
-                }
+                auxAnterior = hoja;
             }
             if(arbolHilera.charAt(i)==')'){
-                auxAnterior = hoja.getLigaIzq();
+                //auxAnterior = hoja.getLigaIzq();
                 /*while(auxAnterior.getLigaDer()==null){
                     auxAnterior = auxAnterior.getLigaIzq();
                 }*/
@@ -29,6 +27,7 @@ public class arbol {
                 hoja = new nodoDoble(arbolHilera.charAt(i+1));
                 hoja.setLigaIzq(auxAnterior);
                 auxAnterior.setLigaDer(hoja);
+                auxAnterior = hoja;
             }
         }
     }
