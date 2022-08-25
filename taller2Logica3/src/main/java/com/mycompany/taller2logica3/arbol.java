@@ -23,7 +23,7 @@ public class arbol {
         auxPadre = raiz;
         nodoAux = auxPadre;
         int i=3;
-        while(i<=longitud-2){
+        while(i<=longitud-3){
             hoja = new nodoDoble(null);
             nodoAux.setLigaDer(hoja);
             nodoAux = hoja;
@@ -62,6 +62,43 @@ public class arbol {
     public nodoDoble getRaiz() {
         return raiz;
     }
-
+    
+    public void imprimirArbol(nodoDoble raiz, int band){
+        nodoDoble p, primero, q;
+        Stack pila = new Stack();
+        if(raiz==null){
+            System.out.println("LISTA VACIA");
+            return;
+        }
+        primero = null;
+        if(band==0){
+            System.out.print("("+raiz.getValor());
+            if(raiz.getLigaDer()==null){
+                System.out.print(")");
+                return;
+            }
+            System.out.print("(");
+            primero = raiz;
+        }
+        p = raiz.getLigaDer();
+        while(p!=null){
+            if(p.getSw()==0){
+                System.out.print(p.getValor());
+            }
+            else{
+                q = (nodoDoble)p.getValor();
+                System.out.print(q.getValor()+"(");
+                imprimirArbol((nodoDoble)p.getValor(),1);
+            }
+            if(p.getLigaDer()!=null){
+                System.out.print(",");
+            }
+            p = p.getLigaDer();
+        }
+        System.out.print(")");
+        if(primero==raiz){
+            System.out.print(")");
+        } 
+    }
    
 }
