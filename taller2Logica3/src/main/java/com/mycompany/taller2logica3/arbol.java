@@ -65,7 +65,6 @@ public class arbol {
     
     public void imprimirArbol(nodoDoble raiz, int band){
         nodoDoble p, primero, q;
-        Stack pila = new Stack();
         if(raiz==null){
             System.out.println("LISTA VACIA");
             return;
@@ -84,10 +83,12 @@ public class arbol {
         while(p!=null){
             if(p.getSw()==0){
                 System.out.print(p.getValor());
+                //System.out.println(" padre = "+p.getLigaIzq().getValor());
             }
             else{
                 q = (nodoDoble)p.getValor();
                 System.out.print(q.getValor()+"(");
+                //System.out.println(" padre ="+p.getLigaIzq().getValor());
                 imprimirArbol((nodoDoble)p.getValor(),1);
             }
             if(p.getLigaDer()!=null){
@@ -100,5 +101,96 @@ public class arbol {
             System.out.print(")");
         } 
     }
+    public int gradoMayor(){
+        nodoDoble p = this.raiz;
+        int mayor=0, aux;
+        while(p!=null){
+            aux = gradoRegistro(p);
+            if(aux>mayor){
+                mayor = aux;
+            }
+        }
+        p = this.raiz.getLigaDer();
+        while(p!=null){
+            if(p.getSw()==1){
+                aux = gradoRegistro((nodoDoble)p.getValor());
+                if(aux>mayor){
+                    mayor = aux;
+                }
+                p = p.getLigaIzq();
+            }
+        }
+        return mayor;
+    }
+    
+    public void altura(){
+        
+    }
+    
+    public int numeroHojas(nodoDoble raiz){
+        if(raiz.getLigaDer()==null)return 0;
+        if(raiz==null)return 0;
+        nodoDoble p = raiz.getLigaDer();
+        int hojas=0;
+        while(p!=null){
+            if(p.getSw()==0){
+                hojas = hojas+1;
+            }
+            else{
+                hojas = hojas + numeroHojas((nodoDoble)p.getValor());
+            }
+            p = p.getLigaDer();
+        }
+        return hojas;
+    }
+    
+    public int gradoRegistro(nodoDoble registro){
+        if(registro.getSw()==0 && registro!=this.raiz){
+            return 0;
+        }
+        if(registro==this.raiz){
+            nodoDoble p = registro.getLigaDer();
+            int i = 0;
+            while(p!=null){
+                i = i+1;
+                p = p.getLigaDer();
+            }
+            return i;
+        }
+        if(registro.getSw()==1){
+            return gradoRegistro((nodoDoble)registro.getValor());
+        }
+        return 0;
+    }
+    
+    public int nivelRegistro(nodoDoble registro){
+        if(registro==this.raiz){
+            return 1;
+        }
+        if(registro==null){
+            return 0;
+        }
+        nodoDoble p = registro.getLigaIzq();
+        int i=1;
+        while(p!=null){
+            i = i+1;
+            p = p.getLigaIzq();
+        }
+        return i;
+    }
+    
+    public void ancestros(nodoDoble registro){
+        if(registro==this.raiz){
+            System.out.println("El registro es la raiz, por lo tanto no tiene ancestros.");
+            return;
+        }
+        nodoDoble p=registro.getLigaIzq();
+        while(p!=null){
+            System.out.println(p.getValor());
+            p = p.getLigaIzq();
+        }
+        return;
+    }
    
+    
 }
