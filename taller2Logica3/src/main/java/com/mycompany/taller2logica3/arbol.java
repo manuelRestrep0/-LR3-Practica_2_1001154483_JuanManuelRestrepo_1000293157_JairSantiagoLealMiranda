@@ -109,6 +109,7 @@ public class arbol {
             if(aux>mayor){
                 mayor = aux;
             }
+            p = p.getLigaDer();
         }
         p = this.raiz.getLigaDer();
         while(p!=null){
@@ -117,14 +118,28 @@ public class arbol {
                 if(aux>mayor){
                     mayor = aux;
                 }
-                p = p.getLigaIzq();
             }
+            p = p.getLigaDer();
         }
         return mayor;
     }
     
-    public void altura(){
-        
+    public int altura(nodoDoble raiz){
+        nodoDoble p = raiz;
+        if(p==null)return 0;
+        if(p.getLigaDer()==null)return 1;
+        int h=1,aux;
+        p = p.getLigaDer();
+        while(p!=null){
+            if(p.getSw()==1){
+                aux = altura((nodoDoble)p.getValor());
+                if(aux>h){
+                    h=aux;
+                }
+            }
+            p = p.getLigaDer();
+        }
+        return h+1;
     }
     
     public int numeroHojas(nodoDoble raiz){
