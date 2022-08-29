@@ -105,7 +105,7 @@ public class arbol {
         nodoDoble p = this.raiz;
         int mayor=0, aux;
         while(p!=null){
-            aux = gradoRegistro(p);
+            aux = gradoRegistro(p,this.raiz);
             if(aux>mayor){
                 mayor = aux;
             }
@@ -114,7 +114,7 @@ public class arbol {
         p = this.raiz.getLigaDer();
         while(p!=null){
             if(p.getSw()==1){
-                aux = gradoRegistro((nodoDoble)p.getValor());
+                aux = gradoRegistro((nodoDoble)p.getValor(),(nodoDoble)p.getValor());
                 if(aux>mayor){
                     mayor = aux;
                 }
@@ -159,11 +159,8 @@ public class arbol {
         return hojas;
     }
     
-    public int gradoRegistro(nodoDoble registro){
-        if(registro.getSw()==0 && registro!=this.raiz){
-            return 0;
-        }
-        if(registro==this.raiz){
+    public int gradoRegistro(nodoDoble registro, nodoDoble raiz){
+        if(registro==raiz){
             nodoDoble p = registro.getLigaDer();
             int i = 0;
             while(p!=null){
@@ -172,8 +169,29 @@ public class arbol {
             }
             return i;
         }
-        if(registro.getSw()==1){
-            return gradoRegistro((nodoDoble)registro.getValor());
+        nodoDoble p,q;
+        p = raiz.getLigaDer();
+        int i = 0;
+        while(p!= null){
+            if(p==registro){
+                if(p.getSw()==0)return 0;
+                else{
+                    q = (nodoDoble)p.getValor();
+                    q = q.getLigaDer();
+                    while(q!=null){
+                        i = i+1;
+                        q = q.getLigaDer();
+                    }
+                    return i;
+                }
+            }
+            else{
+                if(p.getSw()==1){
+                    i = gradoRegistro(registro,(nodoDoble)p.getValor());
+                    if(i!=0)return i;
+                }
+            }
+            p = p.getLigaDer();
         }
         return 0;
     }

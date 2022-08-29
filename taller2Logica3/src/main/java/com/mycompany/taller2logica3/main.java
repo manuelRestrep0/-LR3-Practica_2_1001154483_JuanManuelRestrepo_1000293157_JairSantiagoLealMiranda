@@ -8,7 +8,7 @@ public class main {
         prueba.imprimirArbol(prueba.getRaiz(), 0);
         System.out.println("");
         System.out.println("altura: "+String.valueOf(prueba.altura(prueba.getRaiz())));
-        System.out.println("grado de un registro: "+String.valueOf(prueba.gradoRegistro(prueba.getRaiz())));
+        System.out.println("grado de un registro: "+String.valueOf(prueba.gradoRegistro(prueba.getRaiz(),prueba.getRaiz())));
         System.out.println("grado mayor: "+String.valueOf(prueba.gradoMayor()));
         System.out.println("numero hojas: "+String.valueOf(prueba.numeroHojas(prueba.getRaiz())));
         
